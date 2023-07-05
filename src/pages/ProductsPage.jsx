@@ -15,7 +15,7 @@ const Products = () => {
       <h1>Product Names:</h1>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>
+          <li>
             {product.name}
             <button onClick={handleAddToBasket}>Buy</button>
           </li>
