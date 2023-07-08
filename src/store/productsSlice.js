@@ -1,18 +1,38 @@
-import { createSlice } from "@reduxjs/toolkit";
-import data from "../data.json";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+
+export const fetchPosts =  createAsyncThunk(
+    'posts/fetchPosts',
+    async () => {
+      const resp = await axios.get('https://dummyjson.com/products?limit=10&skip=10')
+      return resp.data
+    }
+)
 
 const productsSlice = createSlice({
   name: 'products',
   initialState: {
-    items: data, 
-    basket: 0
+    items: [], 
+    basket: [],
   },
   reducers: {
-    addToBasket: (state) => {
-        state.basket += 1
-    }
+    addToBasket: (state, action) => {
+      const selectedProduct = state.items.find(
+        (product) => product.id === action.payload.productId
+      );
+      if (selectedProduct) {
+        state.basket.push(selectedProduct);
+      }
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+      state.items = action.payload.products
+    })
   }
 });
 
 export const {addToBasket} = productsSlice.actions;
 export default productsSlice.reducer;
+
+

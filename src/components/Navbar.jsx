@@ -4,7 +4,8 @@ import { useSelector } from "react-redux";
 const activeMenuClass = ({isActive}) => isActive ? 'active-menu' : ''
 
 const Navbar = () => {
-  const basketCount = useSelector((state) => state.products.basket)
+  const basket = useSelector((state) => state.products.basket)
+  const basketCount = basket.length
 
   return (
     <nav>
@@ -16,7 +17,7 @@ const Navbar = () => {
           <NavLink to="/products" className={activeMenuClass}>Products</NavLink>
         </li>
         <li>
-          <NavLink className={activeMenuClass}>Basket {basketCount}</NavLink>
+          <NavLink to="/basket" className={activeMenuClass}>Basket {basketCount}</NavLink>
         </li>
       </ul>
     </nav>
