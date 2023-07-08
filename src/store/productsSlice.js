@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchPosts =  createAsyncThunk(
-    'posts/fetchPosts',
+export const fetchProducts =  createAsyncThunk(
+    'posts/fetchProducts',
     async () => {
       const resp = await axios.get('https://dummyjson.com/products?limit=10&skip=10')
       return resp.data
@@ -26,7 +26,7 @@ const productsSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+    builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.items = action.payload.products
     })
   }

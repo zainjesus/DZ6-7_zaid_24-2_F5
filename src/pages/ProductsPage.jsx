@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addToBasket, fetchPosts } from "../store/productsSlice";
+import { addToBasket, fetchProducts } from "../store/productsSlice";
 
 const Products = () => {
   const products = useSelector((state) => state.products.items);
@@ -11,7 +11,7 @@ const Products = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchPosts())
+    dispatch(fetchProducts())
   }, [dispatch])
 
 
